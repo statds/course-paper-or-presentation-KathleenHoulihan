@@ -1,0 +1,169 @@
+\documentclass[12pt]{article}
+\usepackage{amsmath}
+\usepackage[margin = 1in]{geometry}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{natbib}
+\usepackage{float}
+
+
+
+
+\usepackage{lipsum}
+
+\usepackage[colorlinks=true, citecolor=blue]{hyperref}
+
+
+
+\title{UCSAS 2024 USOPC Data Challenge}
+\author{Kathleen Houlihan\\
+  Department of Statistics\\
+  University of Connecticut
+}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+
+  At the Summer Olympics in Paris in 2024, ninety-six men and ninety-six women 
+  from around the world will compete on various apparatus. Twelve teams of five athletes will be 
+  featured in the team events for both men's and women's events. In terms of events, women
+  will compete on four apparatus while men will compete on six apparatus. This paper along 
+  with my senior honors thesis will focus on the completion of the UCSAS 2024 USOPC Data Challenge. 
+  The UCSAS 2024 USOPC Data Challenge tasks individuals with developing an analytics model that
+  can be used to identify and compare the expected medal count for the United States male and 
+  female artistic gymnasts at the 2024 Summer Olympics in Paris. At the Olympics there are 8 
+  medal events for men consisting of team all-around, individual all-around, floor exercise, 
+  pommel horse, still rings, vault, parallel bars, and high bar and 6 medal events for the women 
+  consisting of team all-around, individual all-around, vault, uneven bars, balance beam, and 
+  floor exercise. 
+
+\end{abstract}
+
+\section{Introduction}
+\label{sec:intro}
+
+The Summer and Winter Olympics are held every four years, traditionally in a unique country and city.
+ The importance of the Olympics cannot be understated as the games are a symbol of peaceful global 
+ interaction and give people hope that a better world is possible \citep{United Nations}. For decades, gymnastics has been 
+ the most watched sport in the Summer Olympics and the United States has been known for bringing gold 
+ medal-winning gymnasts to compete. In the 2020 Summer Olympics games in Tokyo, the United States 
+ female artistic gymnastics team took home the gold medal in the Women's All Around, a bronze medal 
+ in the Women's Balance Beam, a gold medal in the Women's Floor Exercise, a silver medal for the Women's
+ Team, a bronze medal in the Women's Uneven Bars, and a silver medal in the Women's Vault \citep{Olympics}. 
+ Noting that the United States was the only country to have a team medal in all six women's artistic gymnastics 
+  categories, the likely hood of the United States bringing female athletes that will medal in the 2024 
+  Paris Olympics is very probable. However, in the 2020 Summer Olympics games in Tokyo, the United States 
+  male artistic gymnastics team did not medal at all. This data challenge not only tasks individuals 
+  with predicting the expected medal count, but also predicting which athletes the United States will 
+  and should select to bring to the Paris 2024 Summer Olympics in order to maximize the number of medals 
+  the Unites States teams win. 
+
+\\
+
+The rest of this proposal is organized as follows. First, I will identify the data that is available
+ in order to complete this project in Section~\ref{sec:data}. Next, I will briefly discuss my intended 
+ analytical methods in Section~\ref{sec:meth}. Then, I will analyze the literature that is already 
+ available on this topic in Section~\ref{sec:lit}. Lastly, I will discuss some challenges, limitations, and 
+ fall-back plans in Section~\ref{sec:dis}.
+
+\section{Data}
+\label{sec:data}
+
+This year, the University of Connecticut Sports Analytic Symposium (UCSAS) and the United States 
+Olympic and Paralympic Committee has released a data challenge focused on identifying a group of 
+five athletes who will enable the United States Men's and Women's Artistic Gymnastics teams to 
+maximize earned medals at the Paris 2024 Summer Olympics. This paper will serve as a demonstration
+of my preliminary work towards completing this data challenge. To predict which of the United States 
+athletes are most likely to medal on the various apparatuses, I will be using the cleaned data that 
+is provided in the UCSAS data challenge that includes data from major domestic and international 
+gymnastic competitions from 2022 and 2023. The cleaned data provides the last name, first name, gender, 
+country, date, competition, round, location, apparatus, rank, difficulty score, execution score, penalty, 
+and overall score of various potential Olympic athletes at various competitions. This data is available, 
+public, and already cleaned to be easily loaded into R studio where the majority of the computations 
+required of this project will be completed.
+
+\section{Methods}
+\label{sec:meth}
+
+The proposed method of this paper will involve calculating and examining the mean and standard 
+deviations of each American male and female athlete's score on each apparatus and then using the 
+mean score as the main predictor and the standard deviation to determine if an athlete with a lower 
+mean is more consistent in cases where mean scores are similar. Then, we will use the mean score and 
+standard deviations to determine which athletes are ranked in the top ten on each apparatus. Using 
+these top 10 athletes on each apparatus we will produce combinations of five athletes and calculate 
+each combination's expected additive score. Using this information we will be able to select which 
+five athletes for each gender the United States will be most likely to select to bring to the Olympics 
+based on both mean and standard deviation. Furthermore, once the predicted United States teams have 
+been selected we will be able to compare the mean scores and standard deviation of each United States 
+athlete on each apparatus to the mean scores and standard deviation of each athlete from other countries 
+in order to predict the leader board for each apparatus. This information can then be used to predict 
+team and individual overall by examining the average of each top athlete's scores on each apparatus. 
+From these computations we will be able to predict the leader board and medal distribution at the Paris 
+2024 Summer Olympics.
+
+\section{Literature Review}
+\label{sec:lit}
+
+Currently there is no literature available relevant to predicting gymnastics outcomes at the 2024 
+Paris Summer Olympics. However, there is literature that relates to various aspects of the data that 
+will be used to form our predictions. For example, the article \textit{The Prediction of All-Around 
+Event Final Score Based On D and E Score Factors In Women's Artistic Gymnastics} aims to determine the 
+impact of individual apparatus D and E score in artistic gymnastics in relation to the final result of 
+all-around event which could be useful in allowing us to understand how D and E scores, which are 
+available in the data, play an effort in predicting the overall score. Additionally, the paper 
+\textit{Performance rating in men’s world elite artistic gymnastics: a status-quo study on scoring 
+tendencies at Olympic Games following rule changes} also can play a similar role in predicting overall 
+score. This paper's objective is to analyze the effect of the 2006 rule change which aimed to reduce the 
+dominance of difficulty while strengthening performance differentiation  in elite artistic gymnastics. 
+Notably, the paper found that the rule change resulted in significantly enhanced performance 
+differentiation with the execution or E score being the main predictor of the final score as opposed to 
+the difficulty or D score. Furthermore, in the article \textit{How Apparatus Difficulty Scores Affect All 
+Around Results in Men's Artistic Gymnastics} the authors use regression, cluster, and ANOVA analysis to 
+analyze how difficulty scores predict overall score differently across different apparatuses. Ultimately, 
+the available literature on predicting artistic gymnastic success provides a lot of information on how we 
+can use the E and D scores provided in the data sets to predict overall score in addition to just looking 
+at mean score and standard deviation.
+
+\section{Discussion}
+\label{sec:dis}
+
+One of the most challenging parts of this research is that there are no prior studies that have similar
+aims to model the design and methods off of. Additionally, the data source provides so much information
+and data that it can be challenging to determine what data is most important and which method of prediction
+is the most effective or appropriate. Currently, our model is limited as it does not take into account the 
+E score, D score, penalty and signficance of specific competitions. That being said, a fall-back plan I have 
+acquired through looking at literature is to examine the E or D scores instead of the overall score in order 
+to predict success at the Olympics. 
+
+\begin{thebibliography}{999}
+  \bibitem{D and E score Predictions}
+  Almir Atiković, Edina Kamenjašević \emph{Science of Gymnastics Journal}
+ The Prediction of All-Around Event Final Score Based On D and E Score Factors In Women's Artistic 
+ Gymnastics
+\bibitem{Olympic Scoring Tendencies}
+  Jonas Rohleder, Alexandra Pizzera, Jonas Breuer, Tobias Vogt \emph{Taylor and Francis Online}
+  Performance rating in men’s world elite artistic gymnastics: a status-quo study on scoring tendencies 
+  at Olympic Games following rule changes.
+\bibitem{Difficulty Scoring}
+  Ivan Čuk, Warwick Forbes \emph{Science of Gymnastics Journal}
+  How Apparatus Difficulty Scores Affect All Around Results in Men's Artistic Gymnastics.
+\bibitem{Data Challenge} 
+  UCSAS 2024 USOPC Data Challenge,
+ UCSAS Data Challenge \emph{Data Challenge}.
+   The goal of the data challenge is to identify the group of 5 athletes who will enable the Team USA 
+   Olympic Men’s and Women’s Artistic Gymnastics teams to optimize success in Paris 2024.
+\bibitem{United Nations}
+   The Olympic Movement, the United Nations and the Pursuit of Common Ideals
+   \emph{UN Chronicle}
+   The global importance of the Summer and Winter Olympics.
+\bibitem{Olympics}
+   Tokyo 2020 Artistic Gymnastics Results
+   \emph{Olympic Games Tokyo 2020}
+   The results of the Tokyo 2020 Summer Olympic artistic gymnastics.
+\end{thebibliography}
+\bibliography{refs}
+\bibliographystyle{mcap}
+
+\end{document}
