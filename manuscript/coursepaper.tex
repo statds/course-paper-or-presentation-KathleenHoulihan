@@ -75,15 +75,21 @@ The rest of this paper is organized as follows. First, I will identify the data 
 This year, the University of Connecticut Sports Analytic Symposium (UCSAS) and the United States 
 Olympic and Paralympic Committee has released a data challenge focused on identifying a group of 
 five athletes who will enable the United States Men's and Women's Artistic Gymnastics teams to 
-maximize earned medals at the Paris 2024 Summer Olympics. This paper will serve as a demonstration
-of my preliminary work towards completing this data challenge. To predict which of the United States 
+maximize earned medals at the Paris 2024 Summer Olympics. To predict which of the United States 
 athletes are most likely to medal on the various apparatuses, I will be using the cleaned data that 
 is provided in the UCSAS data challenge that includes data from major domestic and international 
 gymnastic competitions from 2022 and 2023. The cleaned data provides the last name, first name, gender, 
 country, date, competition, round, location, apparatus, rank, difficulty score, execution score, penalty, 
 and overall score of various potential Olympic athletes at various competitions. This data is available, 
 public, and already cleaned to be easily loaded into R studio where the majority of the computations 
-required of this project will be completed.
+required of this project will be completed. 
+\\
+The UCSAS data challenge also provides data from major domestic
+and international gymnastic competions from 2017 to 2021 which must be kept separate from the more recent 2022 
+and 2023 data due to the fact that the Code of Points scoring system is changed each Olympic cycle. Regardless 
+of this fact, the primary data source for this paper will be the data from 2022 and 2023, as time, injuries, 
+and other factors can have a large impact on the success of a gymnast, so the greatest predictor
+of the Olympic outcomes in 2024 will be the most recent data.
 
 \section{Methods}
 \label{sec:meth}
