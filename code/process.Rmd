@@ -1,0 +1,230 @@
+---
+title: "R Notebook"
+output: html_document
+---
+
+```{r packages}
+# Load packages
+library(tidyverse)
+library(dplyr)
+library(ggplot2)
+library(readr)
+```
+```{r Functions}
+# Read the CSV file
+data <- read.csv("data_2022_2023 (8).csv", header = TRUE)
+
+#Convert all last names to lowercase
+data$LastName <- tolower(data$LastName)
+
+#Remove rows with scores equal to zero
+data <- data %>% filter(Score != 0)
+
+#Combine VT, VT1, and VT2 in the "Apparatus" column
+data$Apparatus <- ifelse(data$Apparatus %in% c("VT", "VT1", "VT2"), "VT", data$Apparatus)
+
+#Calculate the mean and standard deviation of each United States female gymnast's score for each apparatus
+usa_female_scores <- data %>%
+  filter(Country == "USA" & Gender == "w") %>%
+  group_by(Apparatus, LastName, FirstName) %>%
+  summarize(
+    Mean_Score = mean(Score),
+    SD_Score = sd(Score)
+  )
+
+#Add a "Number of Observations" column to the usa_female_scores table
+usa_female_scores <- data %>%
+  filter(Country == "USA" & Gender == "w") %>%
+  group_by(Apparatus, LastName, FirstName) %>%
+  summarize(
+    Num_Observations = n(),
+    Mean_Score = mean(Score),
+    SD_Score = sd(Score)
+  )
+
+#Create a table with the top 10 athletes with the highest mean scores for each apparatus and to plot each apparatus on separate graphs
+  # Filter for USA female gymnasts
+  usa_female_scores <- data %>%
+  filter(Country == "USA" & Gender == "w")
+
+  # Group by apparatus, calculate mean, standard deviation, and number of observations
+  usa_female_scores <- usa_female_scores %>%
+  group_by(Apparatus, LastName, FirstName) %>%
+  summarize(
+    Num_Observations = n(),
+    Mean_Score = mean(Score),
+    SD_Score = sd(Score)
+   )
+
+  # Create a table with the top 10 athletes for each apparatus
+  top_10_athletes <- usa_female_scores %>%
+  group_by(Apparatus) %>%
+  arrange(Apparatus, desc(Mean_Score)) %>%
+  slice_head(n = 10)
+
+  # Plot each apparatus on separate graphs
+  for (apparatus in unique(top_10_athletes$Apparatus)) {
+  data_subset <- filter(top_10_athletes, Apparatus == apparatus)
+  p <- ggplot(data_subset, aes(x = SD_Score, y = Mean_Score, label = LastName)) +
+    geom_point() +
+    geom_text(hjust = 0, vjust = 0) +
+    labs(title = paste("Top 10 Athletes in", apparatus),
+         x = "Standard Deviation", y = "Mean Score")
+  print(p)
+  }
+  
+  # Print the table of top 10 athletes
+  top_10_athletes
+  
+#Add a "Mean minus Standard Deviation" column to the top_10_athletes table
+  # Calculate the mean minus standard deviation
+  top_10_athletes <- top_10_athletes %>%
+  mutate(Mean_minus_SD = Mean_Score - SD_Score)
+
+  # Print the table of top 10 athletes
+  top_10_athletes
+  
+#Add a "Mean minus (0.3) x Standard Deviation" column to the top_10_athletes table
+  # Calculate the mean minus (0.3) x standard deviation
+top_10_athletes <- top_10_athletes %>%
+  mutate(Mean_minus_0.3xSD = Mean_Score - 0.3 * SD_Score)
+
+  # Print the table of top 10 athletes
+  top_10_athletes
+
+#Calculate the means and standard deviations for the specified US female athletes across all apparatuses
+ # Filter for USA female athletes
+  usa_female_scores <- data %>%
+  filter(Country == "USA" & Gender == "w")
+
+  # Define the list of last names
+  target_last_names <- c("biles", "mcclain", "roberson", "sumanasekera", "jones", "carey", "chiles", "matthews", "wong")
+
+  # Filter the data for the specified athletes
+  selected_athletes <- usa_female_scores %>%
+  filter(LastName %in% target_last_names)
+
+  # Group by athlete, apparatus, and calculate mean and standard deviation
+  athlete_apparatus_scores <- selected_athletes %>%
+  group_by(LastName, Apparatus) %>%
+  summarize(
+    Mean_Score = mean(Score),
+    SD_Score = sd(Score)
+  )
+
+  # Print the results
+  print(athlete_apparatus_scores)
+  
+#Calculate the sum of means and standard deviations for the targeted athletes from the athlete_apparatus_scores table
+  # Define the list of last names
+  target_last_names <- c("biles", "mcclain", "roberson", "sumanasekera", "jones", "carey", "chiles", "matthews", "wong")
+
+  # Filter the data for the specified athletes
+  selected_athletes_scores <- athlete_apparatus_scores %>%
+  filter(LastName %in% target_last_names)
+
+  # Group by athlete and calculate the sums of means and standard deviations
+  sums <- selected_athletes_scores %>%
+  group_by(LastName) %>%
+  summarize(
+    Sum_Means = sum(Mean_Score),
+    Sum_SD = sum(SD_Score)
+  )
+
+  # Print the sums for each athlete
+  print(sums)
+  
+#Create a scatter plot of the summed means on the y-axis and summed standard deviations on the x-axis
+  # Create a scatter plot
+  p <- ggplot(sums, aes(x = Sum_SD, y = Sum_Means, label = LastName)) +
+  geom_point() +
+  geom_text(hjust = 0, vjust = 0) +
+  labs(x = "Sum of Standard Deviations", y = "Sum of Means", title = "Female All-Around Candidates")
+
+  # Display the plot
+  print(p)
+  
+#Calculate and display the mean score and standard deviation sum for every combination of 3 athletes from the sums table
+  # Calculate all combinations of 3 athletes
+  athlete_combinations <- combn(sums$LastName, 3)
+
+  # Create a data frame to store the results
+  combinations_results <- data.frame(
+  Combination = character(choose(length(sums$LastName), 3)),
+  Mean_Score = numeric(choose(length(sums$LastName), 3)),
+  SD_Sum = numeric(choose(length(sums$LastName), 3))
+  )
+
+  # Calculate and store the mean and standard deviation sum for each combination
+  for (i in 1:ncol(athlete_combinations)) {
+  combination <- athlete_combinations[, i]
+  mean_scores <- sums$Sum_Means[sums$LastName %in% combination]
+  sd_sums <- sums$Sum_SD[sums$LastName %in% combination]
+  combinations_results$Combination[i] <- paste(combination, collapse = ", ")
+  combinations_results$Mean_Score[i] <- sum(mean_scores)
+  combinations_results$SD_Sum[i] <- sum(sd_sums)
+  }
+
+  # Print the results
+  print(combinations_results)
+  
+#Plot the mean (y-axis) vs. standard deviation (x-axis) for the 10 combinations with the highest mean score from the combinations_results table
+  # Sort the combinations by mean score in descending order and select the top 10
+  top_10_combinations <- head(combinations_results[order(-combinations_results$Mean_Score), ], 10)
+
+  # Create a scatter plot for the top 10 combinations
+  p <- ggplot(top_10_combinations, aes(x = SD_Sum, y = Mean_Score)) +
+  geom_point() +
+  geom_text(aes(label = Combination), hjust = 0, vjust = 0) +
+  labs(x = "Sum of Standard Deviations", y = "Mean Score") +
+  ggtitle("Top 10 Combinations with Highest Mean Score")
+
+  # Display the plot
+  print(p)
+  
+#Calculate and display the mean score and standard deviation sum for every combination of 4 athletes from the sums table
+  # Calculate all combinations of 4 athletes
+  athlete_combinations_4 <- combn(sums$LastName, 4)
+
+  # Create a data frame to store the results
+  combinations_results_4 <- data.frame(
+  Combination = character(choose(length(sums$LastName), 4)),
+  Mean_Score = numeric(choose(length(sums$LastName), 4)),
+  SD_Sum = numeric(choose(length(sums$LastName), 4))
+  )
+
+  # Calculate and store the mean and standard deviation sum for each combination
+  for (i in 1:ncol(athlete_combinations_4)) {
+  combination <- athlete_combinations_4[, i]
+  mean_scores <- sums$Sum_Means[sums$LastName %in% combination]
+  sd_sums <- sums$Sum_SD[sums$LastName %in% combination]
+  combinations_results_4$Combination[i] <- paste(combination, collapse = ", ")
+  combinations_results_4$Mean_Score[i] <- sum(mean_scores)
+  combinations_results_4$SD_Sum[i] <- sum(sd_sums)
+  }
+
+  # Print the results
+  print(combinations_results_4)
+  
+#Plot the mean (y-axis) vs. standard deviation (x-axis) for the 10 combinations with the highest mean score from the combinations_results_4 table
+  # Sort the combinations by mean score in descending order and select the top 10
+  top_10_combinations_4 <- head(combinations_results_4[order(-combinations_results_4$Mean_Score), ], 10)
+
+  # Create a scatter plot for the top 10 combinations
+  p <- ggplot(top_10_combinations_4, aes(x = SD_Sum, y = Mean_Score)) +
+  geom_point() +
+  geom_text(aes(label = Combination), hjust = 0, vjust = 0) +
+  labs(x = "Sum of Standard Deviations", y = "Mean Score") +
+  ggtitle("Top 10 Combinations with Highest Mean Score (4 Athletes)")
+
+  # Display the plot
+  print(p)
+```
+  
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
