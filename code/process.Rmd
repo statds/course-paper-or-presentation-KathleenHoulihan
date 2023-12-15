@@ -12,7 +12,7 @@ library(readr)
 ```
 ```{r Functions}
 # Read the CSV file
-data <- read.csv("data_2022_2023 (8).csv", header = TRUE)
+data <- read.csv("../gym2024data/cleandata/data_2022_2023.csv", header = TRUE)
 
 #Convert all last names to lowercase
 data$LastName <- tolower(data$LastName)
