@@ -26,7 +26,7 @@ data$Apparatus <- ifelse(data$Apparatus %in% c("VT", "VT1", "VT2"), "VT", data$A
 #Calculate the mean and standard deviation of each United States female gymnast's score for each apparatus
 usa_female_scores <- data %>%
   filter(Country == "USA" & Gender == "w") %>%
-  group_by(Apparatus, LastName, FirstName) %>%
+  group_by(Apparatus, LastName) %>%
   summarize(
     Mean_Score = mean(Score),
     SD_Score = sd(Score)
@@ -35,7 +35,7 @@ usa_female_scores <- data %>%
 #Add a "Number of Observations" column to the usa_female_scores table
 usa_female_scores <- data %>%
   filter(Country == "USA" & Gender == "w") %>%
-  group_by(Apparatus, LastName, FirstName) %>%
+  group_by(Apparatus, LastName) %>%
   summarize(
     Num_Observations = n(),
     Mean_Score = mean(Score),
@@ -49,7 +49,7 @@ usa_female_scores <- data %>%
 
   # Group by apparatus, calculate mean, standard deviation, and number of observations
   usa_female_scores <- usa_female_scores %>%
-  group_by(Apparatus, LastName, FirstName) %>%
+  group_by(Apparatus, LastName) %>%
   summarize(
     Num_Observations = n(),
     Mean_Score = mean(Score),
@@ -84,10 +84,10 @@ usa_female_scores <- data %>%
   # Print the table of top 10 athletes
   top_10_athletes
   
-#Add a "Mean minus (0.3) x Standard Deviation" column to the top_10_athletes table
-  # Calculate the mean minus (0.3) x standard deviation
+#Add a "Mean minus (0.5) x Standard Deviation" column to the top_10_athletes table
+  # Calculate the mean minus (0.5) x standard deviation
 top_10_athletes <- top_10_athletes %>%
-  mutate(Mean_minus_0.3xSD = Mean_Score - 0.3 * SD_Score)
+  mutate(Mean_minus_0.5xSD = Mean_Score - 0.5 * SD_Score)
 
   # Print the table of top 10 athletes
   top_10_athletes
@@ -98,7 +98,7 @@ top_10_athletes <- top_10_athletes %>%
   filter(Country == "USA" & Gender == "w")
 
   # Define the list of last names
-  target_last_names <- c("biles", "mcclain", "roberson", "sumanasekera", "jones", "carey", "chiles", "matthews", "wong")
+  target_last_names <- c("biles", "mcclain", "blakely", "sumanasekera", "jones", "carey", "chiles", "matthews", "wong", "lincoln", "dicello")
 
   # Filter the data for the specified athletes
   selected_athletes <- usa_female_scores %>%
@@ -117,7 +117,7 @@ top_10_athletes <- top_10_athletes %>%
   
 #Calculate the sum of means and standard deviations for the targeted athletes from the athlete_apparatus_scores table
   # Define the list of last names
-  target_last_names <- c("biles", "mcclain", "roberson", "sumanasekera", "jones", "carey", "chiles", "matthews", "wong")
+  target_last_names <- c("biles", "mcclain", "blakely", "sumanasekera", "jones", "carey", "chiles", "matthews", "wong", "lincoln", "dicello")
 
   # Filter the data for the specified athletes
   selected_athletes_scores <- athlete_apparatus_scores %>%
