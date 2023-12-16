@@ -67,8 +67,10 @@ Paris Olympics is very probable. However, in the 2020 Summer Olympic games in To
 male artistic gymnastics team did not medal at all. This data challenge not only tasks individuals 
 with predicting the expected medal count, but also predicting which athletes the United States will 
 and should select to bring to the Paris 2024 Summer Olympics in order to maximize the number of medals 
-the Unites States teams win. 
+the Unites States teams win. \\
+
 \\
+
 The challenge of selecting a team of five athletes to represnet the United States at the Paris 2024 Olympics is 
 complicated by the layout of the Olympic artictic gymnastics competition. While five athletes compete at the 
 Olympic games, all five athletes do not compete on all four female gymnastic apparatuses. For the team all-around 
@@ -85,7 +87,8 @@ are allowed to advance to the individual all-around finals. Additionally, the to
 during the qualifying round are able to advance to the finals for that apparatus. Similar to the individual all-around, 
 finals, a maximum of two athletes per country can attend the finals for each apparatus. Using this information, I am 
 tasked with determining which combination of five female athletes will maximize the number of medals the United 
-States female team wins.
+States female team wins.\\
+
 
 \\
 
@@ -100,7 +103,28 @@ and some limitations of this project in Section~\ref{sec:dis}.
 \section{Literature Review}
 \label{sec:lit}
 
-There is literature
+Currently there is no literature available relevant to predicting gymnastics outcomes at the 2024 
+Paris Summer Olympics or at recent olympics. However, there is literature that relates to various aspects of 
+the data that will be used to form my predictions. For example, the article "The Prediction of All-Around 
+Event Final Score Based On D and E Score Factors In Women's Artistic Gymnastics" aims to determine the 
+impact of individual apparatus difficulty and execution scores on overall score. 
+Expertise from this article could be useful in allowing us to understand how D and E scores, 
+which are available in my data, play an effort in predicting the overall score. Additionally, the paper 
+"Performance rating in men’s world elite artistic gymnastics: a status-quo study on scoring 
+tendencies at Olympic Games following rule changes" also can play a similar role in predicting overall 
+score. This paper's objective is to analyze the effect on elite artistic gymnastics had by the 2006 rule change 
+which aimed to reduce the dominance of difficulty while strengthening performance differentiation in 
+competition. Notably, the paper found that the rule change resulted in significantly enhanced performance 
+differentiation with the execution or E score being the main predictor of the final score as opposed to 
+the difficulty or D score. Furthermore, in the article "How Apparatus Difficulty Scores Affect All 
+Around Results in Men's Artistic Gymnastics," the authors use regression, cluster, and ANOVA analysis to 
+analyze how difficulty scores predict overall score differently across different apparatuses. However, in this 
+article the authors found that while difficulty scores may have predictive tendancies for some apparatuses, 
+the strength of the prediction varied drastically from apparatus to apparatus, with there being little to no 
+predictive ability for some apparatuses. Ultimately, the available literature on predicting artistic 
+gymnastic scores seemed generally limited to how we can use the E and D scores provided in the data sets 
+to predict overall score, but some aspects of this literature casted doubt on whether E and D scores should be 
+used as predictors at all.
 
 \section{Data}
 \label{sec:data}
@@ -196,7 +220,7 @@ the best two candidates for the individual all-around, and the two athletes that
   \midrule
   BB & biles & 7 & 14.59986 & 0.2175794\\
   \midrule
-  BB & mcclain & 3 14.50000 & 0.3605551\\
+  BB & mcclain & 3 & 14.50000 & 0.3605551\\
   \midrule
   BB & lee & 3 & 14.11667 & 0.4310839\\
   \midrule
@@ -309,7 +333,11 @@ the best two candidates for the individual all-around, and the two athletes that
 \end{tabular}
 \end{table}
 
-
+Tables~\ref{tab:tableBB},~\ref{tab:tableFX},~\ref{tab:tableUB}, and~\ref{tab:tableVT} display the results of 
+computing the mean score and standard deviation of each United States female artistic gymnast on balance beam, floor 
+exercise, uneven bars, and vault. The tables also include a number of observations column which adds contextual 
+value to the standard deviation. In cases where there was only one observation, the standard deviation value is unavailable.
+For the purposes of this research, it is reasonable to ignore any athletes who have only competed once on a particular apparatus.
 
 \begin{figure}[tbp]
   \centering
@@ -317,51 +345,6 @@ the best two candidates for the individual all-around, and the two athletes that
   \caption{Top 10 Candidates for the Olympic Balance Beam Apparatus}
   \label{fig:BB}
 \end{figure}
-
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[scale=0.6]{Top10AthletesFX.pdf}
-  \caption{Top 10 Candidates for the Olympic Floor Exercise Apparatus}
-  \label{fig:FX}
-\end{figure}
-
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[scale=0.6]{Top10AthletesUB.pdf}
-  \caption{Top 10 Candidates for the Olympic Uneven Bar Apparatus}
-  \label{fig:UB}
-\end{figure}
-
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[scale=0.6]{Top10AthletesVT.pdf}
-  \caption{Top 10 Candidates for the Olympic Vault Apparatus}
-  \label{fig:VT}
-\end{figure}
-
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[scale=0.6]{AllAroundCandidates.pdf}
-  \caption{The best candidates for the individual all-around medal}
-  \label{fig:IAA}
-\end{figure}
-
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[scale=0.6]{TeamCombinations3.pdf}
-  \caption{Top 10 combinations of three candidates for the team all-around medal}
-  \label{fig:AA3}
-\end{figure}
-
-\begin{figure}[tbp]
-  \centering
-  \includegraphics[scale=0.6]{TeamCombinations4.pdf}
-  \caption{Top 10 combinations of four candidates for the team all-around medal}
-  \label{fig:AA4}
-\end{figure}
-
-
-
 
 \begin{table}[tbp]
   \caption{Top ten balance beam candidates and their mean minus standard deviation parameter values}
@@ -394,11 +377,22 @@ frazier & NA\\
 \end{tabular}
 \end{table}
 
+Based on the plot of the top ten athletes on the balance beam apparatus I selected the parameter of 
+the score standard deviation subtracted from the mean score in order to identify the best suited five 
+athletes. Based on the parameter, the five "best" female athletes on balance beam are Biles, Mcclain, 
+Lee, Sumanasekera, and Blakely.
 
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[scale=0.6]{Top10AthletesFX.pdf}
+  \caption{Top 10 Candidates for the Olympic Floor Exercise Apparatus}
+  \label{fig:FX}
+\end{figure}
 
 \begin{table}[tbp]
   \caption{Top ten floor exercise candidates and their mean minus standard deviation parameter values}
-  \label{tab:tableBBP}
+  \label{tab:tableFXP}
 \centering
 \begin{tabular}[t]{lccllll}
  \toprule
@@ -427,9 +421,21 @@ frazier & NA\\
 \end{tabular}
 \end{table}
 
+Based on the plot of the top ten athletes on the floor exercise apparatus I selected the parameter of 
+the score standard deviation subtracted from the mean score in order to identify the best suited five 
+athletes. Based on the parameter, the five "best" female athletes for floor exercise are Biles, Lincoln, Carey, 
+Mcclain, Dicello, Chiles.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[scale=0.6]{Top10AthletesUB.pdf}
+  \caption{Top 10 Candidates for the Olympic Uneven Bar Apparatus}
+  \label{fig:UB}
+\end{figure}
+
 \begin{table}[tbp]
   \caption{Top 10 uneven bars candidates and their mean minus half their standard deviation parameter values}
-  \label{tab:tableBBP}
+  \label{tab:tableUBP}
 \centering
 \begin{tabular}[t]{lccllll}
  \toprule
@@ -458,9 +464,21 @@ walker & NA\\
 \end{tabular}
 \end{table}
 
+Based on the plot of the top ten athletes on the uneven bars apparatus I selected the parameter of 
+half of the score standard deviation subtracted from the mean score in order to identify the best suited five 
+athletes. Based on the parameter, the five "best" female athletes for uneven bars are Jones, Biles, Wong, 
+Matthews, and Blakely.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[scale=0.6]{Top10AthletesVT.pdf}
+  \caption{Top 10 Candidates for the Olympic Vault Apparatus}
+  \label{fig:VT}
+\end{figure}
+
 \begin{table}[tbp]
   \caption{Top ten vault candidates and their mean minus half their standard deviation parameter values}
-  \label{tab:tableBBP}
+  \label{tab:tableVTP}
 \centering
 \begin{tabular}[t]{lccllll}
  \toprule
@@ -489,9 +507,28 @@ torry & NA\\
 \end{tabular}
 \end{table}
 
+Based on the plot of the top ten athletes on the vault apparatus I selected the parameter of 
+half of the score standard deviation subtracted from the mean score in order to identify the best suited five 
+athletes. Based on the parameter, the five "best" female athletes on vault are Biles, Carey, Mcclain, Jones, 
+and Chiles.
+
+Ultimately, the list of athletes that ranked among the top five United States female athletes includes Biles, 
+Mcclain, Lee, Sumanasekera, Blakely, Carey, Jones, Chiles, Wong, Matthews, Lincoln, and Dicello. However, Lee 
+only has reported data for two out of four of the female apparatuses so she will not be considered with the other 
+eleven athletes for individual or team all-around. Thus, the list of selected athletes that are involved in future 
+computations includes Biles, Mcclain, Sumanasekera, Blakely, Carey, Jones, Chiles, Wong, Matthews, Lincoln, 
+and Dicello.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[scale=0.6]{AllAroundCandidates.pdf}
+  \caption{The best candidates for the individual all-around medal}
+  \label{fig:IAA}
+\end{figure}
+
 \begin{table}[tbp]
   \caption{Summed means and standard deviations for the selected individual all-around candidates}
-  \label{tab:tableBBP}
+  \label{tab:tableIAA}
 \centering
 \begin{tabular}[t]{lccllll}
  \toprule
@@ -522,6 +559,16 @@ matthews & 52.33400 & 1.556188\\
 \end{tabular}
 \end{table}
 
+Figure~\ref{fig:IAA} and table~\ref{tab:tableIAA} display the summed mean score and standard deviation 
+for each of the eleven selected all-around candidates.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[scale=0.6]{TeamCombinations3.pdf}
+  \caption{Top 10 combinations of three candidates for the team all-around medal}
+  \label{fig:AA3}
+\end{figure}
+
 \begin{table}[tbp]
   \caption{The five combinations of three United States female athletes with the highest combined mean scores}
   \label{tab:tableAA3}
@@ -545,6 +592,16 @@ biles, carey, jones
 \end{tabular}
 \end{table} 
 
+Figure~\ref{fig:AA3} and table~\ref{tab:tableAA3} display the summed mean score and standard deviation 
+for the top combinations of three of the eleven selected all-around candidates.
+
+\begin{figure}[tbp]
+  \centering
+  \includegraphics[scale=0.6]{TeamCombinations4.pdf}
+  \caption{Top 10 combinations of four candidates for the team all-around medal}
+  \label{fig:AA4}
+\end{figure}
+
 \begin{table}[tbp]
   \caption{The five combinations of four United States female athletes with the highest combined mean scores}
   \label{tab:tableAA4}
@@ -566,23 +623,86 @@ biles, dicello, jones, mcclain & 224.3334 & 6.650430\\
 \end{tabular}
 \end{table} 
 
-
-
-
- 
-
-
+Figure~\ref{fig:AA4} and table~\ref{tab:tableAA4} display the summed mean score and standard deviation 
+for the top combinations of four of the eleven selected all-around candidates.
 
 \section{Discussion}
 \label{sec:dis}
 
+In my preliminary steps, I calculated the mean and standard deviation for every female athlete on each 
+apparatus they were reported to have competed on. From these calculations, I decided to cut out most athletes 
+by only inspecting athletes that ranked in the top ten by mean score alone for each apparatus. This was a 
+reasonable elimination of data as the score values among the top ten candidates varied enough, often by over a 
+full point, to justify that athletes that never ranked in the top ten for a particular apparatus are not 
+competitive enough to medal at the Olympics.
+
+I later developed a parameter for each apparatus to further reduce the list of athletes to only include athletes 
+that rank in the top five for each apparatus. However, I designed the parameters to be dependent on the score 
+standard deviation in addition to the mean score. The intent of the paramter is to create a frontier that selects 
+athletes that have high mean scores and low standard deviations in order to select athletes that are the most 
+successful and consistent. Ultimately, for each apparatus I selcted the five athletes with highest parameter value.
+
+For the blanace beam apparatus, I selected the parameter: mean score minus standard deviation. This parameter 
+is very reasonable as it selects athletes with high means and low standard deviations first (Biles then Mcclain 
+then Lee) and selects athletes with lower standard deviations when means are similar (Sumanasekera then Blakely).
+
+For the floor exercise apparatus, I selected the parameter: mean score minus standard deviation. This parameter 
+is reasonable as well as it selects athletes with high means and low standard deviations first (Biles then Lincoln) 
+and selects athletes with lower standard deviations when means are similar (Carey, Dicello, and Chiles). Note, the 
+order in which Carey, Dicello, and Chiles "should" be selected is debatable, but it is most important that the 
+parameter selected these athletes as opposed to athletes that have similar mean scores but higher standard deviations 
+(Jones and Mcclain) or low standard deviations and low low mean scores (Wong).
+
+For the uneven bars apparatus, I selected the parameter: mean score minus half of the standard deviation. 
+This parameter is reasonable as well as it selects athletes with extremely high means first (Jones then Biles) and selects 
+athletes with lower standard deviations when means are similar (Wong then Matthews then Blakely). 
+
+For the vault apparatus, I selected the parameter: mean score minus half of the standard deviation. 
+This parameter is reasonable as well as it selects athletes with extremely high means first (Biles then Carey) and selects 
+athletes with lower standard deviations when means are similar (Mcclain then Jones then Chiles). 
+
+Then, I used these candidates in order to determine who is best suited to compete in the all-around events. 
+First, I calculted the summed mean score and summed standard deviation for each selected athlete. Looking at the data 
+values and plot of these individual all-around candidates, it is very clear that Biles is strong candidate to 
+compete for the individual all-around medal. However, it is not clear whether Jones or Mcclain is better suited 
+to be the second United States individual all-around candidate.
+
+Then, I used the summed mean score and summed standard deviation for each selected athlete to calculate the 
+summed mean score and summed standard deviation for every combination of 
+three and four of these selected athletes. Looking at the data values and plot of the combinations of three athletes, 
+it is clear that Biles, Jones, and Mcclain are by far the best suited trio to compete for the team all-around medal. 
+Additionally, since this data suggests that both Mcclain and Jones should compete in the qualifying round, there 
+is no need to select one over the other for the second individual all-around candidate spot as they would both get 
+the opportunity to qualify, and their scores at the Olympics will determine which athlete, if either, will qualify 
+to attend the individual all-around finals. 
+
+Looking at the data values and plot of the combinations of four athletes, it is not clear whether Chiles, Carey, or 
+Blakely is best suited to be the fourth team all-around candidate as their means and standard deviations are very 
+similar. However, looking at the individual apparatus events provides justification for who to ultimately select. 
+Knowing that two athletes per country can compete for an apparatus medal, it is strategic to try to compose the 
+team of the best two United States athletes for each apparatus. Based on the computations and plots, the superior two 
+athletes on balance beam are Biles and Mcclain, the superior two athletes on floor exercise are Biles and Lincoln, 
+the superior two athletes on uneven bars are Jones and Biles, and the superior two athletes on vault are Biles 
+and Carey. Since Lincoln was not among our top candidates for an all-around medal, it would be logical to select her 
+as the fifth United States Olympic team member who does not compete in the all-around qualifying round. Additionally, 
+since Carey is one of the candidates being considering for the all-around qualifying round and she is one of our superior 
+athletes on vault, it is reasonable to also select her to be the final member of the Olympic team. Although, the 
+summed combination that included Carey has the lowest mean in comparison to the combinations including Chiles or 
+Blakely, the selection of Carey can be further justified by the facts that the summed mean score difference is 
+within one point the combination including Carey has the lowest summed standard deviation.
+
+Ultimately, in order to maximize the the number of medals the Unites States female team wins, I would comprise the 
+team of the athletes Biles, Jones, Mcclain, Lincoln, and Carey.
+
 One of the most challenging parts of this research is that there are no prior studies that have similar
 aims to predict olympic success or candidates to model the design and methods off of. Additionally, 
 the data challenge source provides so much information that determining which data is most valuable 
-can be challenging. Currently, our model is limited as it does not take into account the 
+can be challenging. Currently, my model is limited as it does not take into account the 
 Execution score, Difficulty score, penalty, or importance of specific competitions or rounds over others. 
 Furthermore, another limitation of our model is that we generally tried to avoid selecting athletes that
-had very few attempts on a particular apparatus even if their few or singular scores were exceptional.
+had very few attempts on a particular apparatus even if their few or singular scores were exceptional. However, 
+I ultimately believe that this method still could be very successfull in maximizing success for the United States 
+female gymnasts at the Paris 2024 Summer Olympics.
 
 \bibliographystyle{chicago}
 \bibliography{citations}
