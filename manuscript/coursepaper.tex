@@ -68,6 +68,24 @@ male artistic gymnastics team did not medal at all. This data challenge not only
 with predicting the expected medal count, but also predicting which athletes the United States will 
 and should select to bring to the Paris 2024 Summer Olympics in order to maximize the number of medals 
 the Unites States teams win. 
+\\
+The challenge of selecting a team of five athletes to represnet the United States at the Paris 2024 Olympics is 
+complicated by the layout of the Olympic artictic gymnastics competition. While five athletes compete at the 
+Olympic games, all five athletes do not compete on all four female gymnastic apparatuses. For the team all-around 
+medal, four athletes compete on all four apparatuses in the qualifying round and the sum of the top three of four scores 
+on each apparatus is calculated to determine if the team advances to the team all-around finals. If a team 
+is among the top eight teams to advance, scores from the qualifying round are discared and three athletes from each 
+team compete on all four apparatuses again and all three scores on each apparatus are summed and compared to that 
+of the other teams. In order to be eligible to compete for the individual all-around medal, an athlete must be 
+one of the four athletes that competed on all apparatuses in the qualifying round. If an athlete is among the top 
+24 athletes to advance to the individual all-around final based on the sum of their scores on each apparatus, 
+scores from the qualifying round are discarded and each athlete competes on all four apparatuses again. Despite 
+the fact that four athletes compete on all apparatuses in the qualifying round, only two athletes from each country 
+are allowed to advance to the individual all-around finals. Additionally, the top eight athletes on each apparatus 
+during the qualifying round are able to advance to the finals for that apparatus. Similar to the individual all-around, 
+finals, a maximum of two athletes per country can attend the finals for each apparatus. Using this information, I am 
+tasked with determining which combination of five female athletes will maximize the number of medals the United 
+States female team wins.
 
 \\
 
@@ -129,30 +147,39 @@ name alone.
 The most important task of the larger project involves determining which 5 athletes
 should be brought to the 2024 Olympics in order to maximize success. For women, this means determining 
 which five athletes stand the greatest chance of winning the gold medal for the women's individual all-around,
-team all-around, Balance Beam, Floor Exercise, Uneven Bars, and Vault.  
+team all-around, Balance Beam, Floor Exercise, Uneven Bars, and Vault. 
 
-In order to select the appropriate athletes, I first calculated and examined the mean and standard 
-deviations of each American male and female athlete's score on each apparatus. Then, I plotted the mean 
-versus the standard deviation of the ten athletes with the highest mean scores on each apparatus. 
+In order to select the appropriate athletes, I first processed the data as described in Section~\ref{sec:data}.
+Then, I calculated and examined the mean and standard deviations of each American female athlete's score 
+on each apparatus. I also examined the number of observations for each athlete on each apparatus to familiarize 
+myself with which athletes tend to compete at the most competitions and on which apparatuses. Then, I plotted 
+the mean versus the standard deviation of the ten athletes with the highest mean scores on each apparatus. 
 Using this visual, I created a parameter for each apparatus that uses both mean score and standard 
 deviation to identify which athletes are best suited to be considered to compete on behalf of the United 
-States on each apparatus. Using this parameter, I identified the best five athletes that have competed on
-each apparatus. 
+States on each apparatus. Using this parameter, I identified the "best" five athletes that compete on
+each apparatus based on both their success, a high mean score, and their inconsistency, their standard deviation. 
 
-Next, using only the athletes I have selected using the parameters, 
+Next, using only the athletes I identified as the "best" on each apparatus using the parameters, 
 I calculated the sum of each athletes mean score for each apparatus and the sum of each athlete's standard 
-deviation for each apparatus. Similarly to before, I plotted the mean versus the standard deviation for the 
-ten athletes with the highest summed mean score from these selected athletes. This plot is intended to represent
+deviation for each apparatus. Similarly to before, I plotted the mean score versus the standard deviation for 
+these selected athletes. This plot is intended to represent
 the United States' best candidates for earning a gold medal for the individual all-around component of the Olympics.
 
-Then, using the sum of each athletes mean score for each apparatus and the sum of each athlete's standard 
-deviation for each apparatus which was calculated above, I calculated the expected score and standard deviation sum 
-of the total number of atheltes on our limited list chose three, which represents the possible total scores
-for different all-around team combinations.
+Then, using the sum of each selected athlete's mean score for each apparatus and the sum of each athlete's standard 
+deviation for each apparatus which was previously calculated, I calculated the summed mean score and standard deviation sum 
+of every combination of three athletes. Next, I plotted the summed mean score versus the standard deviation for the ten 
+athlete combinations with the highest summed mean score. This plot is designed to identify the United States' best 
+candidates for the all-around team finals.
 
-Finally, in order to build a final team of five, we will include the best three candidates for the team 
-all-around, the best candidate for the individual all-around, and manually examine if there is a candidate that 
-is superior on a paricular apparatus that should be included.
+Furthermore, using the sum of each selected athlete's mean score for each apparatus and the sum of each athlete's standard 
+deviation for each apparatus which was previously calculated, I calculated the summed mean score and standard deviation sum 
+of every combination of four athletes. Once again, I plotted the summed mean score versus the standard deviation for the ten 
+athlete combinations with the highest summed mean score. This plot is designed to identify the United States' best 
+candidates for the all-around team qualifying round.
+
+Finally, in order to build a final team of five, we will manually examine all of the data in an effort to include in 
+the final team the best three candidates for the team all-around, the best candidate for the fourth qualifying position, 
+the best two candidates for the individual all-around, and the two athletes that are superior on each apparatus.
 
 
 \section{Results}
